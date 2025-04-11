@@ -1,0 +1,42 @@
+# XAMPP specific
+/xampp/
+/htdocs/
+/php/
+/mysql/
+/tmp/
+
+# IDE specific
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+
+# Cache
+*.cache
+cache/
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Database
+*.sql
+*.sqlite
+*.db
+
+# Temporary files
+*.tmp
+*.temp 

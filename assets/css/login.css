@@ -1,0 +1,58 @@
+/* Login Page Specific Styles */
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.login-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 15px;
+    text-align: center;
+}
+
+.login-form {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.login-links {
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* Animation for error/success messages */
+.alert {
+    transition: all 0.3s ease;
+}
+
+.alert.show {
+    display: block !important;
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .login-container {
+        padding: 10px;
+    }
+    
+    .login-card {
+        margin: 10px;
+    }
+} 

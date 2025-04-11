@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="800" height="600" fill="#f8f9fa"/>
+    
+    <!-- City Grid -->
+    <g stroke="#e0e0e0" stroke-width="1">
+        <!-- Vertical streets -->
+        <line x1="100" y1="0" x2="100" y2="600"/>
+        <line x1="300" y1="0" x2="300" y2="600"/>
+        <line x1="500" y1="0" x2="500" y2="600"/>
+        <line x1="700" y1="0" x2="700" y2="600"/>
+        
+        <!-- Horizontal streets -->
+        <line x1="0" y1="100" x2="800" y2="100"/>
+        <line x1="0" y1="300" x2="800" y2="300"/>
+        <line x1="0" y1="500" x2="800" y2="500"/>
+    </g>
+    
+    <!-- Transport Routes -->
+    <g stroke-width="3">
+        <!-- Bus Route -->
+        <path d="M100,100 L300,100 L500,300 L700,300" stroke="#1a237e" fill="none"/>
+        <circle cx="100" cy="100" r="5" fill="#1a237e"/>
+        <circle cx="300" cy="100" r="5" fill="#1a237e"/>
+        <circle cx="500" cy="300" r="5" fill="#1a237e"/>
+        <circle cx="700" cy="300" r="5" fill="#1a237e"/>
+        
+        <!-- Minibus Route -->
+        <path d="M100,500 L300,300 L500,500 L700,500" stroke="#0d47a1" fill="none"/>
+        <circle cx="100" cy="500" r="5" fill="#0d47a1"/>
+        <circle cx="300" cy="300" r="5" fill="#0d47a1"/>
+        <circle cx="500" cy="500" r="5" fill="#0d47a1"/>
+        <circle cx="700" cy="500" r="5" fill="#0d47a1"/>
+    </g>
+    
+    <!-- Points of Interest -->
+    <g>
+        <!-- Bus Station -->
+        <rect x="280" y="80" width="40" height="40" rx="5" fill="#1a237e" opacity="0.8"/>
+        <text x="300" y="105" font-family="Arial" font-size="20" fill="white" text-anchor="middle">🚌</text>
+        
+        <!-- Coffee Shop -->
+        <rect x="480" y="280" width="40" height="40" rx="5" fill="#8d6e63" opacity="0.8"/>
+        <text x="500" y="305" font-family="Arial" font-size="20" fill="white" text-anchor="middle">☕</text>
+        
+        <!-- ATM -->
+        <rect x="680" y="280" width="40" height="40" rx="5" fill="#43a047" opacity="0.8"/>
+        <text x="700" y="305" font-family="Arial" font-size="20" fill="white" text-anchor="middle">🏧</text>
+        
+        <!-- Restaurant -->
+        <rect x="280" y="480" width="40" height="40" rx="5" fill="#e53935" opacity="0.8"/>
+        <text x="300" y="505" font-family="Arial" font-size="20" fill="white" text-anchor="middle">🍽️</text>
+    </g>
+    
+    <!-- Legend -->
+    <g transform="translate(20, 20)">
+        <rect width="160" height="120" rx="5" fill="white" stroke="#e0e0e0"/>
+        <text x="10" y="30" font-family="Arial" font-size="14" font-weight="bold">Legend</text>
+        <g transform="translate(10, 50)">
+            <line x1="0" y1="0" x2="20" y2="0" stroke="#1a237e" stroke-width="3"/>
+            <text x="30" y="5" font-family="Arial" font-size="12">Bus Route</text>
+        </g>
+        <g transform="translate(10, 70)">
+            <line x1="0" y1="0" x2="20" y2="0" stroke="#0d47a1" stroke-width="3"/>
+            <text x="30" y="5" font-family="Arial" font-size="12">Minibus Route</text>
+        </g>
+        <g transform="translate(10, 90)">
+            <text x="0" y="5" font-family="Arial" font-size="12">🚌 Bus Station</text>
+        </g>
+        <g transform="translate(10, 110)">
+            <text x="0" y="5" font-family="Arial" font-size="12">☕ Coffee Shop</text>
+        </g>
+    </g>
+</svg> 
