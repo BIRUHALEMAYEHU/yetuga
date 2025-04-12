@@ -1,0 +1,19 @@
+.traffic-card {
+    transition: transform 0.2s;
+}
+
+.traffic-card:hover {
+    transform: translateY(-5px);
+}
+
+.severity-high {
+    border-left: 4px solid #dc3545;
+}
+
+.severity-medium {
+    border-left: 4px solid #ffc107;
+}
+
+.severity-low {
+    border-left: 4px solid #28a745;
+} 

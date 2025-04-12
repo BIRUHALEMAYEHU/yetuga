@@ -1,0 +1,117 @@
+:root {
+    --primary-color: #0d6efd;
+    --success-color: #198754;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+}
+
+.stats-card {
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.stats-card.blue { background: var(--primary-color); }
+.stats-card.green { background: var(--success-color); }
+.stats-card.yellow { background: var(--warning-color); }
+.stats-card.red { background: var(--danger-color); }
+
+.stats-card .card-body {
+    color: white;
+    padding: 1.5rem;
+}
+
+.stats-number {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.stats-label {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.stats-detail {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.subcity-stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s;
+}
+
+.subcity-stat:hover {
+    background-color: #f8f9fa;
+}
+
+.vehicle-type-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.vehicle-type-item:hover {
+    background-color: #f8f9fa;
+}
+
+.vehicle-type-item i {
+    font-size: 1.2rem;
+    width: 30px;
+}
+
+.modal-header {
+    background: var(--primary-color);
+    color: white;
+}
+
+.modal-header .btn-close {
+    color: white;
+}
+
+.vehicle-detail-row {
+    padding: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.vehicle-detail-row:last-child {
+    border-bottom: none;
+}
+
+.recent-activity-table th,
+.recent-activity-table td {
+    padding: 1rem;
+}
+
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.quick-action-btn {
+    width: 100%;
+    text-align: left;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.quick-action-btn:hover {
+    transform: translateX(10px);
+} 

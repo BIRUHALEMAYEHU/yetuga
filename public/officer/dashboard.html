@@ -8,9 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="../../assets/css/style.css" rel="stylesheet">
-    <link href="../../assets/css/officer_dashboard.css" rel="stylesheet">
+    <link href="../../assets/css/dashboard.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation -->
@@ -107,40 +109,47 @@
                 </div>
 
                 <!-- Statistics Cards -->
-                <div class="row">
-                    <div class="col-md-3 mb-4">
-                        <div class="card text-white bg-primary">
+                <div class="row mb-4">
+                    <!-- Active Routes Card -->
+                    <div class="col-md-3">
+                        <div class="card stats-card blue" data-bs-toggle="modal" data-bs-target="#routesModal">
                             <div class="card-body">
-                                <h5 class="card-title">Active Routes</h5>
-                                <p class="card-text display-6">24</p>
-                                <small>+3 from yesterday</small>
+                                <div class="stats-label">Active Routes</div>
+                                <div class="stats-number">24</div>
+                                <div class="stats-detail">+3 from yesterday</div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 mb-4">
-                        <div class="card text-white bg-success">
+
+                    <!-- Available Vehicles Card -->
+                    <div class="col-md-3">
+                        <div class="card stats-card green" data-bs-toggle="modal" data-bs-target="#vehiclesModal">
                             <div class="card-body">
-                                <h5 class="card-title">Available Vehicles</h5>
-                                <p class="card-text display-6">156</p>
-                                <small>12 maintenance</small>
+                                <div class="stats-label">Available Vehicles</div>
+                                <div class="stats-number">156</div>
+                                <div class="stats-detail">12 maintenance</div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 mb-4">
-                        <div class="card text-white bg-warning">
+
+                    <!-- Pending Reports Card -->
+                    <div class="col-md-3">
+                        <div class="card stats-card yellow" onclick="window.location.href='reports.html'">
                             <div class="card-body">
-                                <h5 class="card-title">Pending Reports</h5>
-                                <p class="card-text display-6">8</p>
-                                <small>2 urgent</small>
+                                <div class="stats-label">Pending Reports</div>
+                                <div class="stats-number">8</div>
+                                <div class="stats-detail">2 urgent</div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 mb-4">
-                        <div class="card text-white bg-danger">
+
+                    <!-- Route Alerts Card -->
+                    <div class="col-md-3">
+                        <div class="card stats-card red" onclick="window.location.href='alerts.html'">
                             <div class="card-body">
-                                <h5 class="card-title">Route Alerts</h5>
-                                <p class="card-text display-6">3</p>
-                                <small>1 critical</small>
+                                <div class="stats-label">Route Alerts</div>
+                                <div class="stats-number">3</div>
+                                <div class="stats-detail">1 critical</div>
                             </div>
                         </div>
                     </div>
@@ -149,55 +158,56 @@
                 <!-- Recent Activity -->
                 <div class="row">
                     <div class="col-md-8">
-                        <h3>Recent Activity</h3>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Time</th>
-                                        <th>Event</th>
-                                        <th>Route</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>10:45 AM</td>
-                                        <td>Route Update</td>
-                                        <td>Bole - Megenagna</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>09:30 AM</td>
-                                        <td>Traffic Alert</td>
-                                        <td>Piassa - Merkato</td>
-                                        <td><span class="badge bg-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>09:15 AM</td>
-                                        <td>New Report</td>
-                                        <td>Mexico - Stadium</td>
-                                        <td><span class="badge bg-danger">Urgent</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Recent Activity</h5>
+                                <table class="table recent-activity-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Time</th>
+                                            <th>Event</th>
+                                            <th>Route</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>10:45 AM</td>
+                                            <td>Route Update</td>
+                                            <td>Bole - Megenagna</td>
+                                            <td><span class="status-badge bg-success">Completed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>09:30 AM</td>
+                                            <td>Traffic Alert</td>
+                                            <td>Piassa - Merkato</td>
+                                            <td><span class="status-badge bg-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>09:15 AM</td>
+                                            <td>New Report</td>
+                                            <td>Mexico - Stadium</td>
+                                            <td><span class="status-badge bg-danger">Urgent</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <h3>Quick Actions</h3>
-                        <div class="list-group">
-                            <a href="routes.html" class="list-group-item list-group-item-action">
-                                <i class="bi bi-plus-circle"></i> Add New Route
-                            </a>
-                            <a href="reports.html" class="list-group-item list-group-item-action">
-                                <i class="bi bi-flag"></i> Review Reports
-                            </a>
-                            <a href="traffic.html" class="list-group-item list-group-item-action">
-                                <i class="bi bi-exclamation-triangle"></i> Update Traffic Status
-                            </a>
-                            <a href="assignments.html" class="list-group-item list-group-item-action">
-                                <i class="bi bi-person-plus"></i> Assign Staff
-                            </a>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Quick Actions</h5>
+                                <button class="btn btn-light quick-action-btn" onclick="window.location.href='routes.html'">
+                                    <i class="fas fa-plus-circle me-2"></i>Add New Route
+                                </button>
+                                <button class="btn btn-light quick-action-btn" onclick="window.location.href='reports.html'">
+                                    <i class="fas fa-clipboard-list me-2"></i>Review Reports
+                                </button>
+                                <button class="btn btn-light quick-action-btn" onclick="window.location.href='traffic.html'">
+                                    <i class="fas fa-traffic-light me-2"></i>Update Traffic Status
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -205,9 +215,144 @@
         </div>
     </div>
 
-    <!-- Bootstrap Bundle with Popper -->
+    <!-- Routes Modal -->
+    <div class="modal fade" id="routesModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-route me-2"></i>Routes by Sub-city
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="subcity-stat">
+                        <div>
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            <span>Akaki Kality</span>
+                        </div>
+                        <div>
+                            <span class="badge bg-primary">11 routes</span>
+                            <i class="fas fa-chevron-right ms-2"></i>
+                        </div>
+                    </div>
+                    <div class="subcity-stat">
+                        <div>
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            <span>Bole</span>
+                        </div>
+                        <div>
+                            <span class="badge bg-primary">8 routes</span>
+                            <i class="fas fa-chevron-right ms-2"></i>
+                        </div>
+                    </div>
+                    <div class="subcity-stat">
+                        <div>
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            <span>Yeka</span>
+                        </div>
+                        <div>
+                            <span class="badge bg-primary">21 routes</span>
+                            <i class="fas fa-chevron-right ms-2"></i>
+                        </div>
+                    </div>
+                    <div class="subcity-stat">
+                        <div>
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            <span>Lemikura</span>
+                        </div>
+                        <div>
+                            <span class="badge bg-primary">27 routes</span>
+                            <i class="fas fa-chevron-right ms-2"></i>
+                        </div>
+                    </div>
+                    <div class="subcity-stat">
+                        <div>
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            <span>Kirkos</span>
+                        </div>
+                        <div>
+                            <span class="badge bg-primary">15 routes</span>
+                            <i class="fas fa-chevron-right ms-2"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='routes.html'">View All Routes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vehicles Modal -->
+    <div class="modal fade" id="vehiclesModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-bus me-2"></i>Available Vehicles
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="vehicle-type-item" onclick="window.location.href='vehicles.html?type=bus'">
+                        <div>
+                            <i class="fas fa-bus me-2"></i>
+                            <span>Public Buses</span>
+                        </div>
+                        <div>
+                            <span class="badge bg-success">45 active</span>
+                            <span class="badge bg-warning ms-2">5 maintenance</span>
+                            <i class="fas fa-chevron-right ms-2"></i>
+                        </div>
+                    </div>
+                    <div class="vehicle-type-item" onclick="window.location.href='vehicles.html?type=minibus'">
+                        <div>
+                            <i class="fas fa-shuttle-van me-2"></i>
+                            <span>Minibuses</span>
+                        </div>
+                        <div>
+                            <span class="badge bg-success">78 active</span>
+                            <span class="badge bg-warning ms-2">3 maintenance</span>
+                            <i class="fas fa-chevron-right ms-2"></i>
+                        </div>
+                    </div>
+                    <div class="vehicle-type-item" onclick="window.location.href='vehicles.html?type=taxi'">
+                        <div>
+                            <i class="fas fa-taxi me-2"></i>
+                            <span>Taxis</span>
+                        </div>
+                        <div>
+                            <span class="badge bg-success">25 active</span>
+                            <span class="badge bg-warning ms-2">2 maintenance</span>
+                            <i class="fas fa-chevron-right ms-2"></i>
+                        </div>
+                    </div>
+                    <div class="vehicle-type-item" onclick="window.location.href='vehicles.html?type=train'">
+                        <div>
+                            <i class="fas fa-train me-2"></i>
+                            <span>Trains</span>
+                        </div>
+                        <div>
+                            <span class="badge bg-success">8 active</span>
+                            <span class="badge bg-warning ms-2">2 maintenance</span>
+                            <i class="fas fa-chevron-right ms-2"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='vehicles.html'">View All Vehicles</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JavaScript -->
-    <script src="../../assets/js/officer_dashboard.js"></script>
+    <script src="../../assets/js/dashboard.js"></script>
 </body>
 </html> 

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports Management - Yetuga</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        .navbar {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .card {
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        
+        .filter-btn {
+            border-radius: 20px;
+            padding: 5px 15px;
+            margin: 0 5px;
+        }
+        
+        .filter-btn.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .page-title {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .report-type-icon {
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+        
+        .report-card .card-title {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .report-card .card-text {
+            color: #666;
+        }
+        
+        .modal-content {
+            border-radius: 10px;
+        }
+        
+        .modal-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Navigation -->
+    <?php include 'includes/navbar.html'; ?>
+
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="page-title">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Reports Management
+                    </h2>
+                    <div class="d-flex align-items-center">
+                        <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#newReportModal">
+                            <i class="fas fa-plus me-1"></i>New Report
+                        </button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-secondary filter-btn active" id="filterAll">
+                                <i class="fas fa-list me-1"></i>All
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary filter-btn" id="filterPending">
+                                <i class="fas fa-clock me-1"></i>Pending
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary filter-btn" id="filterResolved">
+                                <i class="fas fa-check-circle me-1"></i>Resolved
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Grid -->
+                <div class="row" id="reportsGrid">
+                    <!-- Reports will be loaded here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Details Modal -->
+    <div class="modal fade" id="reportModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-file-alt me-2"></i>Report Details
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-tag me-2"></i>Report Type</h6>
+                            <p id="reportType" class="text-muted"></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-map-marker-alt me-2"></i>Location</h6>
+                            <p id="reportLocation" class="text-muted"></p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h6><i class="fas fa-align-left me-2"></i>Description</h6>
+                        <p id="reportDescription" class="text-muted"></p>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <h6><i class="fas fa-exclamation-triangle me-2"></i>Severity</h6>
+                            <p id="reportSeverity" class="text-muted"></p>
+                        </div>
+                        <div class="col-md-4">
+                            <h6><i class="fas fa-calendar me-2"></i>Date Reported</h6>
+                            <p id="reportDate" class="text-muted"></p>
+                        </div>
+                        <div class="col-md-4">
+                            <h6><i class="fas fa-user me-2"></i>Reported By</h6>
+                            <p id="reportReporter" class="text-muted"></p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h6><i class="fas fa-info-circle me-2"></i>Status</h6>
+                        <select class="form-select" id="reportStatus">
+                            <option value="pending">Pending</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="resolved">Resolved</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <h6><i class="fas fa-reply me-2"></i>Response</h6>
+                        <textarea class="form-control" id="reportResponse" rows="3" placeholder="Enter your response..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>Close
+                    </button>
+                    <button type="button" class="btn btn-primary" id="updateReport">
+                        <i class="fas fa-save me-1"></i>Update Status
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Report Modal -->
+    <div class="modal fade" id="newReportModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-plus me-2"></i>Create New Report
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newReportForm">
+                        <div class="mb-3">
+                            <label for="reportType" class="form-label">Report Type</label>
+                            <select class="form-select" id="reportType" name="type" required>
+                                <option value="">Select type</option>
+                                <option value="Road Block">Road Block</option>
+                                <option value="Fare Dispute">Fare Dispute</option>
+                                <option value="Route Change">Route Change</option>
+                                <option value="Accident">Accident</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reportLocation" class="form-label">Location</label>
+                            <input type="text" class="form-control" id="reportLocation" name="location" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reportDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="reportDescription" name="description" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reportSeverity" class="form-label">Severity</label>
+                            <select class="form-select" id="reportSeverity" name="severity">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="submitReport">Submit Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Store reports data globally
+            let reportsData = [];
+
+            // Load reports
+            function loadReports(filter = 'all') {
+                // Update active filter button
+                $('.filter-btn').removeClass('active');
+                $(`#filter${filter.charAt(0).toUpperCase() + filter.slice(1)}`).addClass('active');
+                
+                $.ajax({
+                    url: '../api/reports/get_reports.php',
+                    type: 'GET',
+                    success: function(response) {
+                        if (response.success) {
+                            // Store the reports data
+                            reportsData = response.reports;
+                            let html = '';
+                            
+                            reportsData.forEach(report => {
+                                if (filter === 'all' || report.status === filter) {
+                                    const statusClass = report.status === 'pending' ? 'warning' : 
+                                                     report.status === 'in_progress' ? 'info' : 'success';
+                                    const statusText = report.status === 'pending' ? 'Pending' : 
+                                                    report.status === 'in_progress' ? 'In Progress' : 'Resolved';
+                                    const typeIcon = report.type === 'Road Block' ? 'fa-road' :
+                                                   report.type === 'Fare Dispute' ? 'fa-money-bill' : 'fa-route';
+                                    
+                                    html += `
+                                        <div class="col-md-4 mb-4">
+                                            <div class="card report-card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        <i class="fas ${typeIcon} report-type-icon"></i>${report.type}
+                                                    </h5>
+                                                    <p class="card-text">${report.description}</p>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span class="badge bg-${statusClass} status-badge">
+                                                            <i class="fas fa-circle me-1"></i>${statusText}
+                                                        </span>
+                                                        <button class="btn btn-sm btn-primary view-report" data-id="${report.id}">
+                                                            <i class="fas fa-eye me-1"></i>View Details
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                }
+                            });
+                            
+                            $('#reportsGrid').html(html);
+                        } else {
+                            alert('Error loading reports: ' + response.error);
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('Error loading reports. Please try again.');
+                    }
+                });
+            }
+
+            // Load initial reports
+            loadReports();
+
+            // Filter buttons
+            $('#filterAll').click(function() { loadReports('all'); });
+            $('#filterPending').click(function() { loadReports('pending'); });
+            $('#filterResolved').click(function() { loadReports('resolved'); });
+
+            // View report details
+            $(document).on('click', '.view-report', function() {
+                const reportId = parseInt($(this).data('id'));
+                // Find the report in our stored data
+                const report = reportsData.find(r => r.id === reportId);
+                
+                if (report) {
+                    $('#reportModal .modal-title').html(`
+                        <i class="fas fa-file-alt me-2"></i>Report Details #${report.id}
+                    `);
+                    $('#reportType').text(report.type);
+                    $('#reportLocation').text(report.location);
+                    $('#reportDescription').text(report.description);
+                    $('#reportStatus').val(report.status);
+                    $('#reportSeverity').text(report.severity);
+                    $('#reportDate').text(new Date(report.created_at).toLocaleString());
+                    $('#reportReporter').text(report.reporter_name);
+                    $('#reportModal').modal('show');
+                } else {
+                    alert('Error: Report not found');
+                }
+            });
+
+            // Save report changes
+            $('#updateReport').click(function() {
+                // Simulate saving changes (replace with actual AJAX call)
+                $('#reportModal').modal('hide');
+                loadReports();
+            });
+
+            // Handle new report submission
+            $('#submitReport').click(function() {
+                const formData = {
+                    type: $('#reportType').val(),
+                    location: $('#reportLocation').val(),
+                    description: $('#reportDescription').val(),
+                    severity: $('#reportSeverity').val()
+                };
+
+                $.ajax({
+                    url: '../api/reports/add_report.php',
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        if (response.success) {
+                            alert('Report submitted successfully!');
+                            $('#newReportModal').modal('hide');
+                            loadReports(); // Refresh the reports list
+                        } else {
+                            alert('Error: ' + response.error);
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('Error submitting report. Please try again.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

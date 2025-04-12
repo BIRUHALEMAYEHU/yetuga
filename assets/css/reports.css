@@ -1,0 +1,86 @@
+.report-card {
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.report-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.report-type-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.report-count {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.report-status {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.report-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.modal-header {
+    background: var(--primary-color);
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.modal-content {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.report-detail-section {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.report-detail-section:last-child {
+    border-bottom: none;
+}
+
+.report-detail-label {
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.report-filter-btn {
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    margin: 0 0.25rem;
+    transition: all 0.3s;
+}
+
+.report-filter-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.report-action-btn {
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    transition: transform 0.2s;
+}
+
+.report-action-btn:hover {
+    transform: translateY(-2px);
+} 

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Management - Yetuga</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .vehicle-type-card {
+            border: none;
+            border-radius: 15px;
+            transition: transform 0.3s;
+            cursor: pointer;
+            background: #f8f9fa;
+        }
+
+        .vehicle-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .vehicle-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #0d6efd;
+        }
+
+        .vehicle-count {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #198754;
+        }
+
+        .vehicle-table th {
+            background: #f8f9fa;
+        }
+
+        .status-active {
+            color: #198754;
+        }
+
+        .status-maintenance {
+            color: #ffc107;
+        }
+
+        .status-inactive {
+            color: #dc3545;
+        }
+
+        .filter-btn {
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            margin: 0 0.25rem;
+        }
+
+        .filter-btn.active {
+            background: #0d6efd;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <?php include 'includes/navbar.html'; ?>
+
+    <div class="container-fluid mt-4">
+        <!-- Vehicle Types Overview -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card vehicle-type-card" onclick="showVehicles('bus')">
+                    <div class="card-body text-center">
+                        <i class="fas fa-bus vehicle-icon"></i>
+                        <h5>Public Buses</h5>
+                        <div class="vehicle-count">45</div>
+                        <small class="text-muted">5 in maintenance</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card vehicle-type-card" onclick="showVehicles('minibus')">
+                    <div class="card-body text-center">
+                        <i class="fas fa-shuttle-van vehicle-icon"></i>
+                        <h5>Minibuses</h5>
+                        <div class="vehicle-count">78</div>
+                        <small class="text-muted">3 in maintenance</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card vehicle-type-card" onclick="showVehicles('taxi')">
+                    <div class="card-body text-center">
+                        <i class="fas fa-taxi vehicle-icon"></i>
+                        <h5>Taxis</h5>
+                        <div class="vehicle-count">25</div>
+                        <small class="text-muted">2 in maintenance</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card vehicle-type-card" onclick="showVehicles('train')">
+                    <div class="card-body text-center">
+                        <i class="fas fa-train vehicle-icon"></i>
+                        <h5>Trains</h5>
+                        <div class="vehicle-count">8</div>
+                        <small class="text-muted">2 in maintenance</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vehicle List Section -->
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="card-title" id="vehicleListTitle">All Vehicles</h5>
+                    <div class="btn-group">
+                        <button class="btn btn-outline-secondary filter-btn active" onclick="filterVehicles('all')">All</button>
+                        <button class="btn btn-outline-secondary filter-btn" onclick="filterVehicles('active')">Active</button>
+                        <button class="btn btn-outline-secondary filter-btn" onclick="filterVehicles('maintenance')">Maintenance</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table vehicle-table" id="vehicleTable">
+                        <thead>
+                            <tr>
+                                <th>Plate No.</th>
+                                <th>Type</th>
+                                <th>Model</th>
+                                <th>Color</th>
+                                <th>Owner</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Sample data - replace with dynamic data -->
+                            <tr>
+                                <td>AA-12345</td>
+                                <td><i class="fas fa-bus me-2"></i>Public Bus</td>
+                                <td>Hyundai County 2020</td>
+                                <td>Blue</td>
+                                <td>Addis Transport Authority</td>
+                                <td><i class="fas fa-circle status-active me-2"></i>Active</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary me-1"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-info"><i class="fas fa-info-circle"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>AA-67890</td>
+                                <td><i class="fas fa-shuttle-van me-2"></i>Minibus</td>
+                                <td>Toyota HiAce 2019</td>
+                                <td>White</td>
+                                <td>Megenagna Association</td>
+                                <td><i class="fas fa-circle status-maintenance me-2"></i>Maintenance</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary me-1"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-info"><i class="fas fa-info-circle"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>AA-11223</td>
+                                <td><i class="fas fa-taxi me-2"></i>Taxi</td>
+                                <td>Toyota Vitz 2018</td>
+                                <td>Yellow</td>
+                                <td>Abebe Kebede</td>
+                                <td><i class="fas fa-circle status-active me-2"></i>Active</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary me-1"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-info"><i class="fas fa-info-circle"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable
+            $('#vehicleTable').DataTable({
+                pageLength: 10,
+                order: [[0, 'asc']]
+            });
+
+            // Get vehicle type from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const vehicleType = urlParams.get('type');
+            if (vehicleType) {
+                showVehicles(vehicleType);
+            }
+        });
+
+        function showVehicles(type) {
+            // Update title
+            const titles = {
+                'bus': 'Public Buses',
+                'minibus': 'Minibuses',
+                'taxi': 'Taxis',
+                'train': 'Trains'
+            };
+            $('#vehicleListTitle').text(titles[type] || 'All Vehicles');
+
+            // Here you would typically filter the DataTable
+            // For now, we'll just log the action
+            console.log('Showing vehicles of type:', type);
+        }
+
+        function filterVehicles(status) {
+            // Update active button
+            $('.filter-btn').removeClass('active');
+            $(event.target).addClass('active');
+
+            // Here you would typically filter the DataTable
+            // For now, we'll just log the action
+            console.log('Filtering vehicles by status:', status);
+        }
+    </script>
+</body>
+</html> 
