@@ -1,20 +1,12 @@
 <?php
-session_start();
+// Include centralized session handler
+require_once '../../config/session_handler.php';
 
-// Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header('Location: ../login.php');
-    exit();
-}
+// Handle session management with one line
+$user_data = officerSessionCheck('Officer Dashboard');
 
-// Check if user has officer role
-if ($_SESSION['user_role'] !== 'officer') {
-    header('Location: ../login.php?error=unauthorized');
-    exit();
-}
-
-// Get user data
-$user_name = $_SESSION['user_name'] ?? 'Officer';
+// Extract user data
+$user_name = $user_data['user_name'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,15 +27,15 @@ $user_name = $_SESSION['user_name'] ?? 'Officer';
                 <h1>Yetuga</h1>
             </div>
             <nav class="nav">
-                <a href="dashboard.html" class="nav-link active">
+                <a href="dashboard.php" class="nav-link active">
                     <i class="fas fa-tachometer-alt"></i>
                     Dashboard
                 </a>
-                <a href="routes.html" class="nav-link">
+                <a href="routes.php" class="nav-link">
                     <i class="fas fa-route"></i>
                     Routes
                 </a>
-                <a href="reports.html" class="nav-link">
+                <a href="reports.php" class="nav-link">
                     <i class="fas fa-flag"></i>
                     Reports
                 </a>
@@ -70,9 +62,9 @@ $user_name = $_SESSION['user_name'] ?? 'Officer';
                         <i class="fas fa-sign-out-alt"></i>
                         Logout
                     </a>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+            </div>
+        </div>
     </header>
 
     <!-- Main Content -->
@@ -82,7 +74,8 @@ $user_name = $_SESSION['user_name'] ?? 'Officer';
             <div class="page-header">
                 <h1>Transport Officer Dashboard</h1>
                 <p>Welcome back, <?php echo htmlspecialchars($user_name); ?>! Here's what's happening in your area.</p>
-                    </div>
+                <?php echo getSessionTimer('../logout.php'); ?>
+            </div>
 
             <!-- Statistics Cards -->
             <div class="stats-grid">
@@ -103,8 +96,8 @@ $user_name = $_SESSION['user_name'] ?? 'Officer';
                     <div class="stat-content">
                         <h3>8</h3>
                         <p>Pending Reports</p>
-        </div>
-    </div>
+                    </div>
+                </div>
 
                 <div class="stat-card">
                     <div class="stat-card">
@@ -116,7 +109,7 @@ $user_name = $_SESSION['user_name'] ?? 'Officer';
                             <p>Daily Commuters</p>
                         </div>
                     </div>
-                        </div>
+                </div>
 
                 <div class="stat-card">
                     <div class="stat-icon">
@@ -133,12 +126,12 @@ $user_name = $_SESSION['user_name'] ?? 'Officer';
             <div class="quick-actions">
                 <h2>Quick Actions</h2>
                 <div class="actions-grid">
-                    <a href="routes.html" class="action-card">
+                    <a href="routes.php" class="action-card">
                         <i class="fas fa-route"></i>
                         <h3>Manage Routes</h3>
                         <p>Add, edit, or remove transport routes</p>
                     </a>
-                    <a href="reports.html" class="action-card">
+                    <a href="reports.php" class="action-card">
                         <i class="fas fa-flag"></i>
                         <h3>View Reports</h3>
                         <p>Review and respond to user reports</p>
@@ -153,8 +146,8 @@ $user_name = $_SESSION['user_name'] ?? 'Officer';
                         <h3>Emergency Updates</h3>
                         <p>Post urgent route changes or alerts</p>
                     </a>
-        </div>
-    </div>
+                </div>
+            </div>
 
             <!-- Recent Reports -->
             <div class="recent-reports">
@@ -200,4 +193,4 @@ $user_name = $_SESSION['user_name'] ?? 'Officer';
 
     <script src="../assets/js/officer/dashboard.js"></script>
 </body>
-</html> 
+</html>

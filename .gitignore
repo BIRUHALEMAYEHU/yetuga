@@ -1,42 +1,61 @@
-# XAMPP specific
-/xampp/
-/htdocs/
-/php/
-/mysql/
-/tmp/
+# Yetuga PHP Project .gitignore
 
-# IDE specific
-.idea/
-.vscode/
-*.sublime-project
-*.sublime-workspace
-
-# OS specific
-.DS_Store
-Thumbs.db
-
-# Environment files
+# Configuration files with sensitive data
+config/database_config.php
 .env
-.env.local
-.env.*.local
+*.env
 
-# Logs
+# Temporary and cache files
+temp/
+cache/
+*.tmp
+*.cache
+
+# Log files
 *.log
 logs/
 
-# Cache
-*.cache
-cache/
-
-# Dependencies
-/vendor/
-/node_modules/
-
-# Database
+# Database files
 *.sql
-*.sqlite
 *.db
 
-# Temporary files
-*.tmp
-*.temp 
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Composer (if you add it later)
+vendor/
+composer.lock
+
+# Node modules (if you add frontend build tools later)
+node_modules/
+npm-debug.log*
+
+# Build outputs
+dist/
+build/
+
+# Backup files
+*.bak
+*.backup
+*_backup/
+
+# Test files
+test_*.php
+*_test.php
+
+# Local development files
+local_config.php
+debug_*.php

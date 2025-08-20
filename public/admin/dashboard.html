@@ -7,21 +7,21 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Check if user has officer role
-if ($_SESSION['user_role'] !== 'officer') {
+// Check if user has admin role
+if ($_SESSION['user_role'] !== 'admin') {
     header('Location: ../login.php?error=unauthorized');
     exit();
 }
 
 // Get user data
-$user_name = $_SESSION['user_name'] ?? 'Officer';
+$user_name = $_SESSION['user_name'] ?? 'Admin';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Officer Dashboard - Yetuga</title>
+    <title>Admin Dashboard - Yetuga</title>
     <link rel="stylesheet" href="../assets/css/officer/dashboard.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -39,21 +39,25 @@ $user_name = $_SESSION['user_name'] ?? 'Officer';
                     <i class="fas fa-tachometer-alt"></i>
                     Dashboard
                 </a>
-                <a href="routes.html" class="nav-link">
-                    <i class="fas fa-route"></i>
-                    Routes
+                <a href="users.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    Users
+                </a>
+                <a href="officers.html" class="nav-link">
+                    <i class="fas fa-user-shield"></i>
+                    Officers
                 </a>
                 <a href="reports.html" class="nav-link">
                     <i class="fas fa-flag"></i>
                     Reports
                 </a>
-                <a href="fares.html" class="nav-link">
-                    <i class="fas fa-dollar-sign"></i>
-                    Fares
+                <a href="routes.html" class="nav-link">
+                    <i class="fas fa-route"></i>
+                    Routes
                 </a>
-                <a href="emergency.html" class="nav-link">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    Emergency
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    Settings
                 </a>
             </nav>
             <div class="user-menu">
@@ -70,9 +74,9 @@ $user_name = $_SESSION['user_name'] ?? 'Officer';
                         <i class="fas fa-sign-out-alt"></i>
                         Logout
                     </a>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+            </div>
+        </div>
     </header>
 
     <!-- Main Content -->
@@ -80,12 +84,42 @@ $user_name = $_SESSION['user_name'] ?? 'Officer';
         <div class="container">
             <!-- Page Header -->
             <div class="page-header">
-                <h1>Transport Officer Dashboard</h1>
-                <p>Welcome back, <?php echo htmlspecialchars($user_name); ?>! Here's what's happening in your area.</p>
-                    </div>
+                <h1>Admin Dashboard</h1>
+                <p>Welcome back, <?php echo htmlspecialchars($user_name); ?>! Here's what's happening in your system.</p>
+            </div>
 
             <!-- Statistics Cards -->
             <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>25</h3>
+                        <p>Total Users</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>8</h3>
+                        <p>Transport Officers</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>42</h3>
+                        <p>Total Reports</p>
+                    </div>
+                </div>
+
                 <div class="stat-card">
                     <div class="stat-icon">
                         <i class="fas fa-route"></i>
@@ -95,102 +129,70 @@ $user_name = $_SESSION['user_name'] ?? 'Officer';
                         <p>Active Routes</p>
                     </div>
                 </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-flag"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3>8</h3>
-                        <p>Pending Reports</p>
-        </div>
-    </div>
-
-                <div class="stat-card">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3>42</h3>
-                            <p>Daily Commuters</p>
-                        </div>
-                    </div>
-                        </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3>2</h3>
-                        <p>Active Alerts</p>
-                    </div>
-                </div>
             </div>
 
             <!-- Quick Actions -->
             <div class="quick-actions">
                 <h2>Quick Actions</h2>
                 <div class="actions-grid">
-                    <a href="routes.html" class="action-card">
-                        <i class="fas fa-route"></i>
-                        <h3>Manage Routes</h3>
-                        <p>Add, edit, or remove transport routes</p>
+                    <a href="users.html" class="action-card">
+                        <i class="fas fa-user-plus"></i>
+                        <h3>Add New User</h3>
+                        <p>Create new user accounts</p>
+                    </a>
+                    <a href="officers.html" class="action-card">
+                        <i class="fas fa-user-shield"></i>
+                        <h3>Manage Officers</h3>
+                        <p>Add or remove transport officers</p>
                     </a>
                     <a href="reports.html" class="action-card">
                         <i class="fas fa-flag"></i>
                         <h3>View Reports</h3>
-                        <p>Review and respond to user reports</p>
+                        <p>Review user reports and complaints</p>
                     </a>
-                    <a href="fares.html" class="action-card">
-                        <i class="fas fa-dollar-sign"></i>
-                        <h3>Update Fares</h3>
-                        <p>Modify fare information for routes</p>
+                    <a href="routes.html" class="action-card">
+                        <i class="fas fa-route"></i>
+                        <h3>Manage Routes</h3>
+                        <p>Add or modify transport routes</p>
                     </a>
-                    <a href="emergency.html" class="action-card">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <h3>Emergency Updates</h3>
-                        <p>Post urgent route changes or alerts</p>
-                    </a>
-        </div>
-    </div>
+                </div>
+            </div>
 
-            <!-- Recent Reports -->
+            <!-- Recent Activity -->
             <div class="recent-reports">
-                <h2>Recent Reports</h2>
+                <h2>Recent Activity</h2>
                 <div class="reports-list">
+                    <div class="report-item">
+                        <div class="report-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="report-content">
+                            <h4>New User Registration</h4>
+                            <p>A new user has registered in the system</p>
+                            <span class="report-time">2 minutes ago</span>
+                            <span class="report-status resolved">Completed</span>
+                        </div>
+                    </div>
                     <div class="report-item">
                         <div class="report-icon">
                             <i class="fas fa-flag"></i>
                         </div>
                         <div class="report-content">
-                            <h4>Fare Dispute</h4>
-                            <p>User reported overcharging on Route 15</p>
-                            <span class="report-time">2 minutes ago</span>
+                            <h4>New Report Submitted</h4>
+                            <p>A fare dispute report has been submitted</p>
+                            <span class="report-time">15 minutes ago</span>
                             <span class="report-status pending">Pending</span>
                         </div>
                     </div>
                     <div class="report-item">
                         <div class="report-icon">
-                            <i class="fas fa-road"></i>
+                            <i class="fas fa-route"></i>
                         </div>
                         <div class="report-content">
-                            <h4>Roadblock</h4>
-                            <p>Construction work blocking Route 8</p>
-                            <span class="report-time">15 minutes ago</span>
-                            <span class="report-status in-progress">In Progress</span>
-                        </div>
-                    </div>
-                    <div class="report-item">
-                        <div class="report-icon">
-                            <i class="fas fa-bus"></i>
-                        </div>
-                        <div class="report-content">
-                            <h4>Service Quality</h4>
-                            <p>Bus driver behavior complaint</p>
+                            <h4>Route Updated</h4>
+                            <p>Transport route has been modified by an officer</p>
                             <span class="report-time">1 hour ago</span>
-                            <span class="report-status resolved">Resolved</span>
+                            <span class="report-status in-progress">In Progress</span>
                         </div>
                     </div>
                 </div>
@@ -200,4 +202,4 @@ $user_name = $_SESSION['user_name'] ?? 'Officer';
 
     <script src="../assets/js/officer/dashboard.js"></script>
 </body>
-</html> 
+</html>

@@ -22,10 +22,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="../auth/login.php">Login</a>
+                        <a class="nav-link" href="login.php">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../auth/register.php">Register</a>
+                        <a class="nav-link" href="login.php">Register</a>
                     </li>
                 </ul>
             </div>
@@ -232,4 +232,4 @@
     <!-- Custom JS -->
     <script src="../assets/js/main.js"></script>
 </body>
-</html> 
+</html>
